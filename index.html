@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Note</title>
+</head>
+<body>
+  <form id="noteForm">
+    <label for="date">Date:</label>
+    <input type="date" id="date" required><br><br>
+
+    <label for="note">Note:</label><br>
+    <textarea id="note" rows="5" required></textarea><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("noteForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const data = {
+        Date: document.getElementById("date").value,
+        Notes: document.getElementById("note").value,
+        sheet_id: "1xEMQJXFpBJ0H4XXlBqWTFgG173tJCZj9DxdhV-ncpFs",
+        range: "Sheet1!A:B"
+      };
+
+      fetch("https://app.windmill.dev/api/w/demo/jobs/run/f/u/nigavictor/receivenote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ZgGvK7S93q6CtyoYgpTXSsN65QoULbpq"
+        },
+        body: JSON.stringify(data)
+      }).then(res => {
+        if (res.ok) {
+          alert("Note submitted successfully!");
+        } else {
+          alert("Error submitting note.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
