@@ -42,7 +42,7 @@
       e.preventDefault();
 
       const data = {
-        Date: document.getElementById("date").value,
+        Date: new Date(document.getElementById("date").value).toISOString().split("T")[0],
         Notes: document.getElementById("note").value,
         sheet_id: "1xEMQJXFpBJ0H4XXlBqWTFgG173tJCZj9DxdhV-ncpFs",
         range: "Sheet1!A:B"
