@@ -4,6 +4,8 @@
   <title>Submit Note</title>
 </head>
 <body>
+  <h3 id="contextInfo"></h3>
+
   <form id="noteForm">
     <label for="date">Date:</label>
     <input type="date" id="date" required><br><br>
@@ -15,6 +17,27 @@
   </form>
 
   <script>
+    // ✅ Extract query parameters from the URL
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // ✅ Auto-fill the form fields from URL parameters
+    window.onload = function () {
+      const dateParam = getQueryParam("Date");
+      const hotelParam = getQueryParam("Hotel");
+
+      if (dateParam) document.getElementById("date").value = dateParam;
+
+      if (hotelParam) {
+        const hotelDecoded = decodeURIComponent(hotelParam.replace(/\+/g, " "));
+        document.getElementById("contextInfo").textContent =
+          "Adding note for: " + hotelDecoded + " — " + dateParam;
+      }
+    };
+
+    // ✅ Form submission
     document.getElementById("noteForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
